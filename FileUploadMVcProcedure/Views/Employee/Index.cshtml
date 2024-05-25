@@ -1,0 +1,47 @@
+﻿@model List<FileUploadMVcProcedure.Context.Employee>
+@{
+    ViewBag.Title = "Employee Index";
+}
+
+<h2 class="text-center mb-4 mt-2">Employee List</h2>
+
+<a class="btn btn-sm btn-outline-secondary shadow" href="@Url.Action("Create", "Employee")">Add New</a>
+
+<table class="table table-hover table-responsive">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Last Updated</th>
+        <th>Profile</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var employee in Model)
+    {
+        <tr>
+            <td>@employee.EmployeeId</td>
+            <td>@employee.EmployeeName</td>
+            <td>@employee.EmployeeEmail</td>
+            <td>@employee.Address</td>
+            <td>@(employee.LastUpdate?.ToString("dd-MM-yyyy"))</td>
+            <td>
+                @if (!string.IsNullOrEmpty(employee.Profile))
+                {
+                    <img src="@Url.Content(employee.Profile)" alt="Profile Image" style="width: 100px; height: 100px;" />
+                }
+                else
+                {
+                    <span>No Image</span>
+                }
+            </td>
+            <td style="min-width: 100px;">
+                <a href="@Url.Action("Edit", new {@employee.EmployeeId})" class="btn btn-sm btn-info">Edit</a>
+                <a href="@Url.Action("Delete", new {@employee.EmployeeId})" class="btn btn-sm btn-danger">Trash</a>
+            </td>
+        </tr>
+
+    }
+</table>
+
